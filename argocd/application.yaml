@@ -1,0 +1,19 @@
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/SagarGi/shipflow-gitops.git
+    targetRevision: main
+    path: helm/shipflow-api
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shipflow
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
