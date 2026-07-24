@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shipflow-api.fullname" . }}
+  labels:
+    {{- include "shipflow-api.labels" . | nindent 4 }}
+
+spec:
+  type: {{ .Values.service.type }}
+
+  selector:
+    {{- include "shipflow-api.selectorLabels" . | nindent 4 }}
+
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.container.port }}
