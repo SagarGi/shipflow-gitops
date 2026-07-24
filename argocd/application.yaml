@@ -1,3 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: shipflow-api
+  namespace: argocd
+  
 spec:
   project: default
 
