@@ -34,3 +34,10 @@ resources:
   limits:
     cpu: 250m
     memory: 256Mi
+
+# NOTE:
+# These values are for local development only.
+# In production, use Sealed Secrets, External Secrets,
+# or another secure secret management solution.
+secrets:
+  JWT_SECRET: my-super-secret-key
