@@ -8,7 +8,7 @@ on:
       - "helm/**"
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -43,15 +45,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ env.REPO_LC }}
-          tags: |
-            type=sha
-            type=raw,value=latest
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -75,4 +68,4 @@ jobs:
           git diff --cached --quiet && exit 0
 
           git commit -m "Update image tag to ${{ github.sha }}"
-          git push
+          git push origin HEAD:${{ github.ref_name }}
